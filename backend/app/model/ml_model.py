@@ -15,8 +15,9 @@ class MLModel(Base):
     __tablename__ = "ml_models"
 
     id: Mapped[uuid.UUID] = mapped_column(
+        String(36),
         primary_key=True,
-        default=uuid.uuid4,
+        default=lambda: str(uuid.uuid4()),
     )
 
     name: Mapped[str] = mapped_column(

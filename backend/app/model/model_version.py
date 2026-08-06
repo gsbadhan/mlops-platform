@@ -23,11 +23,13 @@ class ModelVersion(Base):
     )
 
     id: Mapped[uuid.UUID] = mapped_column(
+        String(36),
         primary_key=True,
-        default=uuid.uuid4,
+        default=lambda: str(uuid.uuid4()),
     )
 
     model_id: Mapped[uuid.UUID] = mapped_column(
+        String(36),
         ForeignKey("ml_models.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
