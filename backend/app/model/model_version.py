@@ -81,3 +81,9 @@ class ModelVersion(Base):
     ml_model: Mapped["MLModel"] = relationship(
         back_populates="versions",
     )
+
+    deployments = relationship(
+        "Deployment",
+        back_populates="model_version",
+        cascade="all, delete-orphan",
+    )

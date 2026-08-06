@@ -10,7 +10,6 @@ class ModelRegistryStages(str, Enum):
     ARCHIVED = "ARCHIVED"
 
 
-
 class DeploymentState(str, Enum):
     REQUESTED = "REQUESTED"
     VALIDATING = "VALIDATING"
@@ -18,6 +17,7 @@ class DeploymentState(str, Enum):
     SUCCEEDED = "SUCCEEDED"
     FAILED = "FAILED"
     ROLLED_BACK = "ROLLED_BACK"
+    NONE = "NONE"
 
 
 class Framework(str, Enum):
@@ -53,7 +53,13 @@ class Algorithm(str, Enum):
     TRANSFORMER = "Transformer"
 
 
-class MonitoringStatus(str, Enum):
-    HEALTHY = "HEALTHY"
-    WARNING = "WARNING"
-    CRITICAL = "CRITICAL"        
+class DeploymentEvent(str, Enum):
+    DEPLOYMENT_REQUESTED = "deployment_requested"
+    VALIDATION_STARTED = "validation_started"
+    DEPLOYMENT_STARTED = "deployment_started"
+    DEPLOYMENT_COMPLETED = "deployment_completed"
+    APPROVAL_VALIDATION_FAILED = "approval_validation_failed"
+    RUNTIME_TIMEOUT = "runtime_timeout"
+    RETRY_REQUESTED = "retry_requested"
+    ROLLBACK_STARTED = "rollback_started"
+    ROLLBACK_COMPLETED = "rollback_completed"

@@ -26,26 +26,10 @@ class ModelVersionRepository(BaseRepository[ModelVersion]):
         stmt = select(ModelVersion).where(
             ModelVersion.model_id == model_id, ModelVersion.version == version
         )
-
         return db.scalar(stmt)
 
-    def find_production_version(
-        self, db: Session, model_id: str
-    ) -> ModelVersion | None:
-        stmt = select(ModelVersion).where(
-            ModelVersion.model_id == model_id, ModelVersion.stage == "PRODUCTION"
-        )
-
-        return db.scalar(stmt)
-
-    def find_approved_versions(self, db: Session, model_id: str) -> list[ModelVersion]:
-        stmt = (
-            select(ModelVersion)
-            .where(ModelVersion.model_id == model_id, ModelVersion.approved.is_(True))
-            .order_by(ModelVersion.created_at.desc())
-        )
-
-        return list(db.scalars(stmt).all())
+    def find_by_version_id(self, db: Session, version_id: str) -> ModelVersion | None:
+        return db.scalar(select(ModelVersion).where(ModelVersion.id == version_id))
 
     def find_by_model_and_version_id(
         self, db: Session, model_id: str, version_id: str

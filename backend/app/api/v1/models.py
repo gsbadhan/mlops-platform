@@ -6,7 +6,7 @@ from app.core.database import get_db
 from app.service.dependencies import get_ml_model_service
 from app.service.ml_model_service import MLModelService
 from app.schema.ml_model import CreateModelRequest
-from app.schema.ml_model import ModelResponse
+from app.schema.ml_model import ModelResponse, ModelSummaryResponse
 from app.model.ml_model import MLModel
 
 router = APIRouter(prefix="/models", tags=["Models"])
@@ -20,6 +20,7 @@ def create_model(
 ):
     model = MLModel(
         name=request.name,
+        owner=request.owner,
         description=request.description,
         framework=request.framework,
         algorithm=request.algorithm,
@@ -28,7 +29,7 @@ def create_model(
     return service.create_model(db=db, model=model)
 
 
-@router.get("", response_model=list[ModelResponse])
+@router.get("", response_model=list[ModelSummaryResponse])
 def get_models(
     db: Session = Depends(get_db),
     service: MLModelService = Depends(get_ml_model_service),
@@ -36,7 +37,7 @@ def get_models(
     return service.list_models(db)
 
 
-@router.get("/{model_id}", response_model=ModelResponse)
+@router.get("/{model_id}", response_model=ModelSummaryResponse)
 def get_model(
     model_id: UUID,
     db: Session = Depends(get_db),

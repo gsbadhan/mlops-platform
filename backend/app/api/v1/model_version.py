@@ -47,7 +47,7 @@ def get_model_versions(
     return service.list_versions(db=db, model_id=str(model_id))
 
 
-@router.put("/{version_id}/stage", response_model=ModelVersionResponse)
+@router.post("/{version_id}/stage", response_model=ModelVersionResponse)
 def change_stage(
     model_id: UUID,
     version_id: UUID,

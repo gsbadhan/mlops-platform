@@ -42,6 +42,11 @@ class MLModel(Base):
         nullable=False,
     )
 
+    owner: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
     created_at: Mapped[datetime] = mapped_column(
         server_default=func.now(),
         nullable=False,
