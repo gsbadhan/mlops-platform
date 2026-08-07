@@ -5,7 +5,13 @@ from sqlalchemy import pool
 
 from alembic import context
 from app.core.database import Base
-from app.model import ml_model, model_version, deployment, deployment_history
+from app.model import (
+    ml_model,
+    model_version,
+    deployment,
+    deployment_history,
+    model_metrics,
+)
 from app.enums.stages import ModelRegistryStages, Framework, Algorithm, DeploymentState
 
 # this is the Alembic Config object, which provides

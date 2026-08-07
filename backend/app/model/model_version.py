@@ -82,8 +82,10 @@ class ModelVersion(Base):
         back_populates="versions",
     )
 
-    deployments = relationship(
-        "Deployment",
-        back_populates="model_version",
-        cascade="all, delete-orphan",
+    deployments: Mapped[list["Deployment"]] = relationship(
+        back_populates="model_version", cascade="all, delete-orphan"
+    )
+
+    metrics: Mapped["ModelMetrics | None"] = relationship(
+        back_populates="model_version", cascade="all, delete-orphan", uselist=False
     )

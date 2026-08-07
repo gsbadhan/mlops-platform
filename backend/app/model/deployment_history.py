@@ -57,7 +57,4 @@ class DeploymentHistory(Base):
         nullable=False,
     )
 
-    deployment = relationship(
-        "Deployment",
-        back_populates="history",
-    )
+    deployment: Mapped["Deployment"] = relationship(back_populates="history")

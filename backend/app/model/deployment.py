@@ -89,13 +89,9 @@ class Deployment(Base):
         nullable=False,
     )
 
-    model_version = relationship(
-        "ModelVersion",
-        back_populates="deployments",
-    )
+    model_version: Mapped["ModelVersion"] = relationship(back_populates="deployments")
 
-    history = relationship(
-        "DeploymentHistory",
+    history: Mapped[list["DeploymentHistory"]] = relationship(
         back_populates="deployment",
         cascade="all, delete-orphan",
         order_by="DeploymentHistory.created_at",

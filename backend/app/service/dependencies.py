@@ -4,6 +4,8 @@ from app.service.deployment_service import DeploymentService
 from app.repository.deployment_repository import DeploymentRepository
 from app.repository.model_version_repository import ModelVersionRepository
 from app.repository.deployment_history_repository import DeploymentHistoryRepository
+from app.service.model_metrics_service import ModelMetricsService
+from app.repository.model_metrics_repository import ModelMetricsRepository
 
 
 def get_ml_model_service() -> MLModelService:
@@ -18,3 +20,7 @@ def get_deployment_service():
     return DeploymentService(
         DeploymentRepository(), ModelVersionRepository(), DeploymentHistoryRepository()
     )
+
+
+def get_model_metrics_service():
+    return ModelMetricsService(ModelMetricsRepository())
