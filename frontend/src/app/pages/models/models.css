@@ -1,0 +1,63 @@
+h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: 600;
+}
+
+
+.stage-form {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+
+.stage-form h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.stage-form p {
+    margin-bottom: 16px;
+}
+
+.stage-form div {
+    margin-bottom: 16px;
+}
+
+.stage-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.stage-form select {
+    width: 100%;
+    padding: 9px 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.stage-form button {
+    padding: 8px 16px;
+    margin-right: 8px;
+}

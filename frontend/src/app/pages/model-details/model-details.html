@@ -1,0 +1,178 @@
+<a routerLink="/models">← Back to Models</a>
+
+<div class="page-header">
+    <h2>Model Version Details</h2>
+
+    <button type="button" (click)="showCreateVersionForm()">
+        + Create Version
+    </button>
+</div>
+@if (createVersionFormVisible()) {
+<div class="create-form stage-form">
+    <h3>Create Model Version</h3>
+
+    <form (submit)="createVersion($event)">
+
+        <div>
+            <label for="version">Version</label>
+
+            <input id="version" type="text" [value]="newVersion().version" (input)="updateVersion($event)"
+                placeholder="1.0.0" />
+        </div>
+
+        <div>
+            <label for="artifact-uri">Artifact URI</label>
+
+            <input id="artifact-uri" type="text" [value]="newVersion().artifact_uri" (input)="updateArtifactUri($event)"
+                placeholder="s3://models/fraud/1.0.0" />
+        </div>
+
+        <div>
+            <label for="training-data-uri">Training Data URI</label>
+
+            <input id="training-data-uri" type="text" [value]="newVersion().training_data_uri"
+                (input)="updateTrainingDataUri($event)" placeholder="s3://datasets/fraud/train.csv" />
+        </div>
+
+        <div>
+            <label for="tags">Tags</label>
+
+            <input id="tags" type="text" [value]="newVersionTags" (input)="updateTags($event)"
+                placeholder="fraud, production, v1" />
+        </div>
+
+        @if (createVersionError()) {
+        <p class="error">
+            {{ createVersionError() }}
+        </p>
+        }
+
+        <button type="submit" [disabled]="creatingVersion()">
+            {{ creatingVersion() ? 'Creating...' : 'Create' }}
+        </button>
+
+        <button type="button" (click)="hideCreateVersionForm()" [disabled]="creatingVersion()">
+            Cancel
+        </button>
+
+    </form>
+</div>
+}
+
+
+
+<h3>Model Details</h3>
+
+@if (loading()) {
+<p>Loading model...</p>
+}
+
+@if (error()) {
+<p>{{ error() }}</p>
+}
+
+@if (!loading() && !error() && model()) {
+<div class="model-details">
+    <p>
+        <strong>Name:</strong>
+        {{ model()!.name }}
+    </p>
+
+    <p>
+        <strong>ID:</strong>
+        {{ model()!.id }}
+    </p>
+
+    <p>
+        <strong>Owner:</strong>
+        {{ model()!.owner }}
+    </p>
+
+    <p>
+        <strong>Framework:</strong>
+        {{ model()!.framework }}
+    </p>
+</div>
+}
+
+
+<h3>Versions</h3>
+
+@if (versionsLoading()) {
+<p>Loading versions...</p>
+}
+
+@if (versionsError()) {
+<p>{{ versionsError() }}</p>
+}
+
+@if (!versionsLoading() && !versionsError() && versions().length === 0) {
+<p>No versions found.</p>
+}
+
+@if (!versionsLoading() && !versionsError() && versions().length > 0) {
+<table>
+    <thead>
+        <tr>
+            <th>Version</th>
+            <th>Stage</th>
+            <th>Approved</th>
+            <th>Created</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (version of versions(); track version.id) {
+        <tr>
+            <td>{{ version.version }}</td>
+            <td>{{ version.stage }}</td>
+            <td>{{ version.approved ? 'Yes' : 'No' }}</td>
+            <td>{{ version.created_at | date:'medium' }}</td>
+            <td>
+                <button type="button" (click)="showChangeStageForm(version)">
+                    Change Stage
+                </button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
+
+@if (changeStageFormVisible() && selectedVersion()) {
+<div class="create-form stage-form">
+    <h3>Change Stage</h3>
+
+    <p>
+        Version:
+        <strong>{{ selectedVersion()?.version }}</strong>
+    </p>
+
+    <div>
+        <label for="stage">Stage</label>
+
+        <select id="stage" [value]="selectedStage()" (change)="updateSelectedStage($event)">
+            @for (stage of modelRegistryStages; track stage) {
+            <option [value]="stage">
+                {{ stage }}
+            </option>
+            }
+        </select>
+    </div>
+
+    @if (changeStageError()) {
+    <p class="error">
+        {{ changeStageError() }}
+    </p>
+    }
+
+    <button type="button" (click)="changeStage()" [disabled]="changingStage()">
+        {{ changingStage() ? 'Changing...' : 'Change Stage' }}
+    </button>
+
+    <button type="button" (click)="hideChangeStageForm()" [disabled]="changingStage()">
+        Cancel
+    </button>
+</div>
+}

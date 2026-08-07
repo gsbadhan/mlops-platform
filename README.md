@@ -1,31 +1,42 @@
-Initialize the backend
+## Initialize the backend
 - uv init
 - uv venv
 - source .venv/bin/activate
 
-Run backend
+## Run backend
 - uv run uvicorn app.main:app --reload
 
-Test backend
+## Test backend
 - uv run pytest
 
 
-Health checks
+## Health checks url:
 - http://127.0.0.1:8000/api/v1/health
 
-Docs
+## Open API docs:
 - http://127.0.0.1:8000/docs
 
-Alembic
-- uv run alembic init alembic
-- uv run alembic revision --autogenerate -m "create tables"
-- uv run alembic upgrade head
+## Initialise the forntend
+- ng new frontend
 
-Structure Overview 
-core/ → configuration, logging, security
-db/ → engine, session, base model
-models/ → ORM entities
+## Run frontend
+- ng serve
 
 
-Docker
+
+## Backend Structure Overview 
+- app/api/  → API endpoints
+- app/core/ → configuration, logging, database, seesion
+- app/enums/  → mappings
+- app/exceptions/  → Application exceptions
+- app/schema/ → API request/response models
+- app/models/ → ORM entities
+- app/repository/ → ORM repositories
+- app/service/ → business logic
+- app/middleware/ → request/response logging
+- tests/ → test cases
+
+## Frontend Structure Overview 
+
+## Docker
 - docker compose up -d

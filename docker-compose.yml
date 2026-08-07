@@ -1,22 +1,26 @@
-
 services:
-  postgres:
-    image: postgres:16
 
-    container_name: mlops-postgres
-
-    restart: unless-stopped
-
-    environment:
-      POSTGRES_DB: mlops
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mlops-backend
     ports:
-      - "5432:5432"
-
+      - "8000:8000"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./backend:/app
+    environment:
+      - PYTHONUNBUFFERED=1
 
-volumes:
-  postgres_data:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: mlops-frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend

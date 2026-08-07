@@ -1,0 +1,112 @@
+<div class="page-header">
+    <h2>Models</h2>
+
+    <button (click)="showCreateForm()">
+        + Create Model
+    </button>
+</div>
+
+@if (createFormVisible()) {
+<div class="create-form stage-form">
+    <h3>Create Model</h3>
+
+    <form (submit)="createModel($event)">
+
+        <div>
+            <label for="name">Name</label>
+            <input id="name" type="text" [value]="newModel().name" (input)="updateName($event)" />
+        </div>
+
+        <div>
+            <label for="owner">Owner</label>
+            <input id="owner" type="text" [value]="newModel().owner" (input)="updateOwner($event)" />
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <textarea id="description" rows="3" [value]="newModel().description"
+                (input)="updateDescription($event)"></textarea>
+        </div>
+
+        <div>
+            <label for="framework">Framework</label>
+
+            <select id="framework" [value]="newModel().framework" (change)="updateFramework($event)">
+                @for (framework of frameworks; track framework) {
+                <option [value]="framework">
+                    {{ framework }}
+                </option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label for="algorithm">Algorithm</label>
+
+            <select id="algorithm" [value]="newModel().algorithm" (change)="updateAlgorithm($event)">
+                @for (algorithm of algorithms; track algorithm) {
+                <option [value]="algorithm">
+                    {{ algorithm }}
+                </option>
+                }
+            </select>
+        </div>
+
+        @if (createError()) {
+        <p class="error">{{ createError() }}</p>
+        }
+
+        <button type="submit" [disabled]="creating()">
+            {{ creating() ? 'Creating...' : 'Create' }}
+        </button>
+
+        <button type="button" (click)="hideCreateForm()" [disabled]="creating()">
+            Cancel
+        </button>
+
+    </form>
+</div>
+}
+
+
+<h2>Models Summary</h2>
+
+@if (loading()) {
+<p>Loading models...</p>
+}
+
+@if (error()) {
+<p>{{ error() }}</p>
+}
+
+@if (!loading() && !error() && models().length === 0) {
+<p>No models found.</p>
+}
+
+@if (!loading() && !error() && models().length > 0) {
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Framework</th>
+            <th>Versions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (model of models(); track model.id) {
+        <tr>
+            <td>
+                <a [routerLink]="['/models', model.id]">
+                    {{ model.name }}
+                </a>
+            </td>
+            <td>{{ model.owner }}</td>
+            <td>{{ model.framework }}</td>
+            <td>{{ model.versions.length }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
