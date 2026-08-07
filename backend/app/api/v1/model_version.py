@@ -22,7 +22,7 @@ router = APIRouter(prefix="/models/{model_id}/versions", tags=["Model Versions"]
 @router.post(
     "", response_model=ModelVersionResponse, status_code=status.HTTP_201_CREATED
 )
-def register_model_version(
+def create_model_version(
     model_id: UUID,
     request: CreateModelVersionRequest,
     db: Session = Depends(get_db),

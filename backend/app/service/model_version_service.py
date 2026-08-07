@@ -5,7 +5,7 @@ from app.exception.model_not_found_exception import ModelNotFoundException
 from app.exception.duplicate_version_exception import DuplicateVersionException
 from app.exception.InvalidTransitionException import InvalidTransitionException
 from app.exception.version_not_found_exception import VersionNotFoundException
-from app.enums.stages import ModelRegistryStages
+from app.enums.stages import ModelRegistryStages, MODEL_REGISTRY_STAGE_TRANSITIONS
 from app.model.model_version import ModelVersion
 from app.repository.ml_model_repository import MLModelRepository
 from app.repository.model_version_repository import ModelVersionRepository
@@ -65,24 +65,5 @@ class ModelVersionService:
     def validate_transition(
         current: ModelRegistryStages, target: ModelRegistryStages
     ) -> None:
-        allowed = {
-            ModelRegistryStages.DRAFT: [
-                ModelRegistryStages.VALIDATED,
-            ],
-            ModelRegistryStages.VALIDATED: [
-                ModelRegistryStages.APPROVED,
-            ],
-            ModelRegistryStages.APPROVED: [
-                ModelRegistryStages.STAGING,
-            ],
-            ModelRegistryStages.STAGING: [
-                ModelRegistryStages.PRODUCTION,
-            ],
-            ModelRegistryStages.PRODUCTION: [
-                ModelRegistryStages.ARCHIVED,
-            ],
-            ModelRegistryStages.ARCHIVED: [],
-        }
-
-        if target not in allowed[current]:
+        if target not in MODEL_REGISTRY_STAGE_TRANSITIONS[current]:
             raise InvalidTransitionException(current=current.name, target=target.name)

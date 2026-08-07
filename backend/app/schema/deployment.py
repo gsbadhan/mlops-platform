@@ -20,3 +20,7 @@ class DeploymentResponse(BaseModel):
     status: DeploymentState
     event: DeploymentEvent
     timestamp: datetime
+
+
+class ChangeStateRequest(BaseModel):
+    state: DeploymentState
