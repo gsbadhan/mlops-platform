@@ -55,7 +55,7 @@ class DeploymentService:
         if model_version is None:
             raise VersionNotFoundException(version_id=request.model_version_id)
 
-        if model_version.stage not in (ModelRegistryStages.APPROVED):
+        if model_version.approved is False:
             raise ModelNotApprovedException(model_id=model_version.model_id)
 
         deployment = Deployment(

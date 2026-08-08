@@ -1,0 +1,128 @@
+<div class="deployment-details">
+
+    <button type="button" class="back-button" (click)="goBack()">
+        ← Back
+    </button>
+
+
+    <h2>Deployment Details</h2>
+
+    @if (loading()) {
+    <p>Loading deployment...</p>
+    }
+
+    @if (error()) {
+    <p class="error">
+        {{ error() }}
+    </p>
+    }
+
+    @if (deployment()) {
+
+    <div class="details-card">
+
+        <div class="detail-row">
+            <strong>Deployment ID</strong>
+            <span>
+                {{ deployment()?.deployment_id }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Model ID</strong>
+            <span>
+                {{ deployment()?.model_id }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Version</strong>
+            <span>
+                {{ deployment()?.version }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Environment</strong>
+            <span>
+                {{ deployment()?.environment }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Status</strong>
+            <span>
+                {{ deployment()?.status }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Event</strong>
+            <span>
+                {{ deployment()?.event }}
+            </span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Timestamp</strong>
+            <span>
+                {{ deployment()?.timestamp | date:'medium' }}
+            </span>
+        </div>
+
+    </div>
+    }
+    <!-- Change action -->
+    <div class="deployment-actions">
+
+        <button type="button" (click)="showChangeStateForm()">
+            Change State
+        </button>
+
+    </div>
+
+    @if (changeStateFormVisible()) {
+
+    <div class="action-form">
+
+        <h3>Change Deployment State</h3>
+
+        <label for="deployment-state">
+            State
+        </label>
+
+        <select id="deployment-state" [value]="selectedState()" (change)="updateSelectedState($event)">
+
+            @for (
+            state of deploymentStates;
+            track state
+            ) {
+            <option [value]="state">
+                {{ state }}
+            </option>
+            }
+
+        </select>
+
+        @if (changeStateError()) {
+        <p class="error">
+            {{ changeStateError() }}
+        </p>
+        }
+
+        <button type="button" (click)="changeDeploymentState()" [disabled]="changingState()">
+            {{
+            changingState()
+            ? 'Changing...'
+            : 'Save'
+            }}
+        </button>
+
+        <button type="button" (click)="hideChangeStateForm()" [disabled]="changingState()">
+            Cancel
+        </button>
+
+    </div>
+
+    }
+</div>

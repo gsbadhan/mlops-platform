@@ -1,0 +1,80 @@
+h2 {
+    margin-bottom: 20px;
+}
+
+.deployment-details {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.back-button {
+    margin-bottom: 15px;
+}
+
+.details-card {
+    max-width: 700px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.detail-row {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row strong {
+    width: 180px;
+}
+
+.detail-row span {
+    flex: 1;
+    word-break: break-word;
+}
+
+.error {
+    color: #c00;
+}
+
+
+.deployment-actions {
+    margin-top: 20px;
+}
+
+.action-form {
+    width: 500px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.action-form h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.action-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.action-form select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+
+.action-form button {
+    margin-right: 8px;
+}

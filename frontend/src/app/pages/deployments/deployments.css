@@ -1,0 +1,66 @@
+h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-weight: 600;
+}
+
+.error {
+    color: #c00;
+    margin-bottom: 15px;
+}
+
+
+.create-form {
+    width: 600px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.create-form h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.create-form div {
+    margin-bottom: 15px;
+}
+
+.create-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.create-form input,
+.create-form select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.create-form button {
+    margin-right: 8px;
+}
+
+.error {
+    color: #c00;
+    margin-bottom: 15px;
+}

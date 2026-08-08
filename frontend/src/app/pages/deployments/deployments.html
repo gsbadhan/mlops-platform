@@ -1,1 +1,111 @@
-<p>deployments works!</p>
+<div class="page-header">
+    <h2>Deployments</h2>
+
+    <button type="button" (click)="showCreateForm()">
+        + Create Deployment
+    </button>
+</div>
+
+@if (createFormVisible()) {
+<div class="create-form">
+
+    <h3>Create Deployment</h3>
+
+    <div>
+        <label for="model-version-id">
+            Model Version ID
+        </label>
+
+        <input id="model-version-id" type="text" [value]="newDeployment().model_version_id"
+            (input)="updateModelVersionId($event)" placeholder="Model version UUID" />
+    </div>
+
+    <div>
+        <label for="environment">
+            Environment
+        </label>
+
+        <select id="environment" [value]="newDeployment().environment" (change)="updateEnvironment($event)">
+            @for (
+            environment of deploymentEnvironments;
+            track environment
+            ) {
+            <option [value]="environment">
+                {{ environment }}
+            </option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="idempotency-key">
+            Idempotency Key
+        </label>
+
+        <input id="idempotency-key" type="text" [value]="newDeployment().idempotency_key"
+            (input)="updateIdempotencyKey($event)" placeholder="Unique request key" />
+    </div>
+
+    @if (createError()) {
+    <p class="error">
+        {{ createError() }}
+    </p>
+    }
+
+    <button type="button" (click)="createDeployment()" [disabled]="creating()">
+        {{ creating() ? 'Creating...' : 'Create' }}
+    </button>
+
+    <button type="button" (click)="hideCreateForm()" [disabled]="creating()">
+        Cancel
+    </button>
+
+</div>
+}
+
+<h3>Deployment Summary</h3>
+@if (loading()) {
+<p>Loading deployments...</p>
+}
+
+@if (error()) {
+<p class="error">{{ error() }}</p>
+}
+
+@if (!loading() && !error() && deployments().length === 0) {
+<p>No deployments found.</p>
+}
+
+@if (!loading() && !error() && deployments().length > 0) {
+<table>
+    <thead>
+        <tr>
+            <th>Deployment ID</th>
+            <th>Model ID</th>
+            <th>Version</th>
+            <th>Environment</th>
+            <th>Status</th>
+            <th>Event</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (deployment of deployments(); track deployment.deployment_id) {
+        <tr>
+            <td>
+                <a [routerLink]="['/deployments', deployment.deployment_id]">
+                    {{ deployment.deployment_id }}
+                </a>
+            </td>
+            <td>{{ deployment.model_id }}</td>
+            <td>{{ deployment.version }}</td>
+            <td>{{ deployment.environment }}</td>
+            <td>{{ deployment.status }}</td>
+            <td>{{ deployment.event }}</td>
+            <td>{{ deployment.timestamp | date:'medium' }}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+}
