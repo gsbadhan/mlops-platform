@@ -1,6 +1,9 @@
-<a routerLink="/models">← Back to Models</a>
-
 <div class="page-header">
+
+    <button type="button" class="back-button" (click)="goBack()">
+        ← Back
+    </button>
+
     <h2>Model Version Details</h2>
 
     <button type="button" (click)="showCreateVersionForm()">
@@ -48,7 +51,7 @@
         }
 
         <button type="submit" [disabled]="creatingVersion()">
-            {{ creatingVersion() ? 'Creating...' : 'Create' }}
+            {{ creatingVersion() ? 'Creating...' : 'Save' }}
         </button>
 
         <button type="button" (click)="hideCreateVersionForm()" [disabled]="creatingVersion()">

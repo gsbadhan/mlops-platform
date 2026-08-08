@@ -38,6 +38,10 @@ th {
     font-weight: 600;
 }
 
+.back-button {
+    margin-bottom: 15px;
+}
+
 .stage-form {
     width: 100%;
     max-width: 500px;
@@ -79,4 +83,8 @@ th {
 .stage-form button {
     padding: 8px 16px;
     margin-right: 8px;
+}
+
+.error {
+    color: #c00;
 }

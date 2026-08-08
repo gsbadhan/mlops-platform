@@ -87,6 +87,14 @@ export interface ChangeModelVersionStageRsp {
   updated_at: string;
 }
 
+export interface GetModelMetricsRsp {
+  version: string;
+  accuracy: number;
+  precision: number;
+  recall: number;
+  f1_score: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -141,5 +149,12 @@ export class ModelService {
     );
   }
 
+  getModelMetrics(
+    modelId: string
+  ): Observable<GetModelMetricsRsp[]> {
+    return this.http.get<GetModelMetricsRsp[]>(
+      `${this.apiUrl}/${modelId}/metrics`
+    );
+  }
 
 }

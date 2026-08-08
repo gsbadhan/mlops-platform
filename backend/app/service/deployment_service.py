@@ -178,7 +178,7 @@ class DeploymentService:
             DeploymentState.VALIDATING: DeploymentState.REQUESTED,
             DeploymentState.DEPLOYING: DeploymentState.VALIDATING,
             DeploymentState.SUCCEEDED: DeploymentState.DEPLOYING,
-            DeploymentState.FAILED: DeploymentState.SUCCEEDED,
+            DeploymentState.FAILED: DeploymentState.DEPLOYING,
         }
         print(request.state)
         from_state = state_workflow_conditions[request.state]

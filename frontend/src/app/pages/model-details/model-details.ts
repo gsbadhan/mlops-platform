@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { getApiErrorMessage } from '../../services/api-error';
@@ -15,12 +14,13 @@ import {
 
 @Component({
   selector: 'app-model-details',
-  imports: [RouterLink, DatePipe],
+  imports: [DatePipe],
   templateUrl: './model-details.html',
   styleUrl: './model-details.css',
 })
 export class ModelDetailsComponent {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private modelService = inject(ModelService);
 
   model = signal<GetModelByIdRsp | null>(null);
@@ -71,6 +71,9 @@ export class ModelDetailsComponent {
     this.loadVersions(modelId);
   }
 
+  goBack(): void {
+    this.router.navigate(['/models']);
+  }
   loadModel(modelId: string): void {
     this.modelService.getModelById(modelId).subscribe({
       next: (data) => {

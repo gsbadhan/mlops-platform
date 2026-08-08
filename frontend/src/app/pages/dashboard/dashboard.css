@@ -1,0 +1,38 @@
+.dashboard {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.dashboard h2 {
+    margin-bottom: 25px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.dashboard-card {
+    display: block;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    box-sizing: border-box;
+}
+
+.dashboard-card:hover {
+    border-color: #999;
+}
+
+.dashboard-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.dashboard-card p {
+    margin: 0;
+}

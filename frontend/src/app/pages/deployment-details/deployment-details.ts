@@ -20,15 +20,21 @@ export class DeploymentDetailsComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
+  //get
   deployment = signal<GetDeploymentByIdRsp | null>(null);
   loading = signal(false);
   error = signal('');
-  //
+  //change
   changeStateFormVisible = signal(false);
   changingState = signal(false);
   changeStateError = signal('');
   selectedState = signal('VALIDATING');
-
+  //retry
+  retrying = signal(false);
+  retryError = signal('');
+  //rollback
+  rollingBack = signal(false);
+  rollbackError = signal('');
 
   deploymentStates = [
     'VALIDATING',
@@ -134,6 +140,88 @@ export class DeploymentDetailsComponent {
             getApiErrorMessage(
               error,
               'Unable to change deployment state.'
+            )
+          );
+        },
+      });
+  }
+
+  //retry
+  retryDeployment(): void {
+    const deployment = this.deployment();
+
+    if (!deployment) {
+      return;
+    }
+
+    this.retrying.set(true);
+    this.retryError.set('');
+
+    this.deploymentService
+      .retryDeployment(deployment.deployment_id)
+      .subscribe({
+        next: (response) => {
+          console.log(
+            'Deployment retry successful:',
+            response
+          );
+
+          this.deployment.set(response);
+          this.retrying.set(false);
+        },
+
+        error: (error: HttpErrorResponse) => {
+          console.error(
+            'Retry deployment error:',
+            error
+          );
+
+          this.retrying.set(false);
+          this.retryError.set(
+            getApiErrorMessage(
+              error,
+              'Unable to retry deployment.'
+            )
+          );
+        },
+      });
+  }
+
+  // rollback
+  rollbackDeployment(): void {
+    const deployment = this.deployment();
+
+    if (!deployment) {
+      return;
+    }
+
+    this.rollingBack.set(true);
+    this.rollbackError.set('');
+
+    this.deploymentService
+      .rollbackDeployment(deployment.deployment_id)
+      .subscribe({
+        next: (response) => {
+          console.log(
+            'Deployment rollback successful:',
+            response
+          );
+
+          this.deployment.set(response);
+
+          this.rollingBack.set(false);
+        },
+
+        error: (error: HttpErrorResponse) => {
+          console.error(
+            'Rollback deployment error:',
+            error
+          );
+          this.rollingBack.set(false);
+          this.rollbackError.set(
+            getApiErrorMessage(
+              error,
+              'Unable to rollback deployment.'
             )
           );
         },

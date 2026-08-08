@@ -1,1 +1,96 @@
-<p>monitoring works!</p>
+<a routerLink="/dashboard" class="dashboard-link">
+    ← Dashboard
+</a>
+
+
+<div class="monitoring">
+
+    <h2>Monitoring Dashboard</h2>
+
+    <div class="model-selector">
+
+        <label for="model">
+            Model
+        </label>
+
+        <select id="model" [value]="selectedModelId()" (change)="updateSelectedModel($event)">
+            <option value="" disabled>
+                Select model
+            </option>
+
+            @for (
+            model of models();
+            track model.id
+            ) {
+            <option [value]="model.id">
+                {{ model.name }}
+            </option>
+            }
+        </select>
+
+    </div>
+
+    @if (loadingModels()) {
+    <p>Loading models...</p>
+    }
+
+    @if (modelsError()) {
+    <p class="error">
+        {{ modelsError() }}
+    </p>
+    }
+
+    @if (loadingMetrics()) {
+    <p>Loading metrics...</p>
+    }
+
+    @if (metricsError()) {
+    <p class="error">
+        {{ metricsError() }}
+    </p>
+    }
+
+    @if (!loadingMetrics() && !metricsError() && selectedModelId() && metrics().length === 0) {
+    <p class="empty-message">
+        No metrics available for this model.
+    </p>
+    }
+
+    @if (!loadingMetrics() && !metricsError() && metrics().length > 0) {
+
+    <div class="metrics-section">
+
+        <h3>Model Metrics</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1 Score</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (
+                metric of metrics();
+                track metric.version
+                ) {
+                <tr>
+                    <td>{{ metric.version }}</td>
+                    <td>{{ metric.accuracy }}</td>
+                    <td>{{ metric.precision }}</td>
+                    <td>{{ metric.recall }}</td>
+                    <td>{{ metric.f1_score }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    }
+
+</div>

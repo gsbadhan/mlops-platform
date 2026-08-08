@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
-//import { DashboardComponent } from './pages/dashboard/dashboard';
+import { DashboardComponent } from './pages/dashboard/dashboard';
 import { ModelsComponent } from './pages/models/models';
 import { ModelDetailsComponent } from './pages/model-details/model-details';
 import { DeploymentsComponent } from './pages/deployments/deployments';
 import { DeploymentDetailsComponent } from './pages/deployment-details/deployment-details';
-//import { MonitoringComponent } from './pages/monitoring/monitoring';
+import { MonitoringComponent } from './pages/monitoring/monitoring';
 
 export const routes: Routes = [
     {
@@ -13,10 +13,12 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
     },
-    // {
-    //     path: 'dashboard',
-    //     component: DashboardComponent,
-    // },
+    {
+        path: 'dashboard',
+        loadComponent: () =>
+            import('./pages/dashboard/dashboard')
+                .then(m => m.DashboardComponent),
+    },
     {
         path: 'models',
         component: ModelsComponent,
@@ -33,8 +35,10 @@ export const routes: Routes = [
         path: 'deployments/:deployment_id',
         component: DeploymentDetailsComponent,
     },
-    // {
-    //     path: 'monitoring',
-    //     component: MonitoringComponent,
-    // },
+    {
+        path: 'monitoring',
+        loadComponent: () =>
+            import('./pages/monitoring/monitoring')
+                .then(m => m.MonitoringComponent),
+    },
 ];

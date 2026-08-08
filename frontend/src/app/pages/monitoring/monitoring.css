@@ -1,0 +1,86 @@
+.monitoring {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.monitoring h2 {
+    margin-bottom: 20px;
+}
+
+.model-selector {
+    width: 400px;
+    max-width: 100%;
+    margin-bottom: 25px;
+}
+
+.model-selector label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.model-selector select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.error {
+    color: #c00;
+}
+
+.metrics-section {
+    margin-top: 25px;
+}
+
+.metrics-section h3 {
+    margin-bottom: 15px;
+}
+
+.metrics-section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.metrics-section th,
+.metrics-section td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.metrics-section th {
+    font-weight: 600;
+}
+
+.metrics-section {
+    margin-top: 25px;
+}
+
+.metrics-section h3 {
+    margin-bottom: 15px;
+}
+
+.metrics-section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.metrics-section th,
+.metrics-section td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.metrics-section th {
+    font-weight: 600;
+}
+
+.empty-message {
+    margin-top: 25px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}

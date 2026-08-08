@@ -1,3 +1,7 @@
+<a routerLink="/dashboard" class="dashboard-link">
+    ← Dashboard
+</a>
+
 <div class="page-header">
     <h2>Models</h2>
 
@@ -57,7 +61,7 @@
         }
 
         <button type="submit" [disabled]="creating()">
-            {{ creating() ? 'Creating...' : 'Create' }}
+            {{ creating() ? 'Creating...' : 'Save' }}
         </button>
 
         <button type="button" (click)="hideCreateForm()" [disabled]="creating()">

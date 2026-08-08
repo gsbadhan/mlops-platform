@@ -47,6 +47,10 @@ h2 {
     margin-top: 20px;
 }
 
+.deployment-actions button {
+    margin-right: 8px;
+}
+
 .action-form {
     width: 500px;
     max-width: 100%;

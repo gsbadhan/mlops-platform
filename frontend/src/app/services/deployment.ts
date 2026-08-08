@@ -52,6 +52,27 @@ export interface ChangeDeploymentStateRsp {
   timestamp: string;
 }
 
+export interface RetryDeploymentRsp {
+  deployment_id: string;
+  model_id: string;
+  version: string;
+  environment: string;
+  status: string;
+  event: string;
+  timestamp: string;
+}
+
+export interface RetryDeploymentRsp {
+  deployment_id: string;
+  model_id: string;
+  version: string;
+  environment: string;
+  status: string;
+  event: string;
+  timestamp: string;
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -88,6 +109,24 @@ export class DeploymentService {
     return this.http.post<ChangeDeploymentStateRsp>(
       `${this.apiUrl}/${deploymentId}/state`,
       request
+    );
+  }
+
+  retryDeployment(
+    deploymentId: string
+  ): Observable<RetryDeploymentRsp> {
+    return this.http.post<RetryDeploymentRsp>(
+      `${this.apiUrl}/${deploymentId}/retry`,
+      {}
+    );
+  }
+
+  rollbackDeployment(
+    deploymentId: string
+  ): Observable<RetryDeploymentRsp> {
+    return this.http.post<RetryDeploymentRsp>(
+      `${this.apiUrl}/${deploymentId}/rollback`,
+      {}
     );
   }
 }

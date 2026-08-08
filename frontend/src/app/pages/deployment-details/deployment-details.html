@@ -75,11 +75,37 @@
     <!-- Change action -->
     <div class="deployment-actions">
 
+        <button type="button" (click)="retryDeployment()" [disabled]="retrying()">
+            {{
+            retrying()
+            ? 'Retrying...'
+            : 'Retry Deployment'
+            }}
+        </button>
+        <button type="button" (click)="rollbackDeployment()" [disabled]="rollingBack()">
+            {{
+            rollingBack()
+            ? 'Rolling Back...'
+            : 'Rollback Deployment'
+            }}
+        </button>
         <button type="button" (click)="showChangeStateForm()">
             Change State
         </button>
 
     </div>
+
+    @if (retryError()) {
+    <p class="error">
+        {{ retryError() }}
+    </p>
+    }
+
+    @if (rollbackError()) {
+    <p class="error">
+        {{ rollbackError() }}
+    </p>
+    }
 
     @if (changeStateFormVisible()) {
 
