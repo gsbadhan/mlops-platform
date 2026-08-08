@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fastapi import Depends
+from fastapi import Depends, status
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.service.dependencies import get_deployment_service
@@ -14,7 +14,7 @@ from uuid import UUID
 router = APIRouter(prefix="/deployments", tags=["Deployments"])
 
 
-@router.post("", response_model=DeploymentResponse)
+@router.post("", response_model=DeploymentResponse, status_code=status.HTTP_201_CREATED)
 def create_deployment(
     request: CreateDeploymentRequest,
     db: Session = Depends(get_db),

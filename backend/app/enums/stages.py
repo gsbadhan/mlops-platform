@@ -1,6 +1,11 @@
 from enum import Enum
 
 
+class Health(str, Enum):
+    UP = "UP"
+    DOWN = "DOWN"
+
+
 class ModelRegistryStages(str, Enum):
     DRAFT = "DRAFT"
     VALIDATED = "VALIDATED"

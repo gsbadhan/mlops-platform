@@ -21,6 +21,16 @@ TestSessionLocal = sessionmaker(
 
 
 @pytest.fixture
+def db():
+    db = TestSessionLocal()
+
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@pytest.fixture
 def client():
     Base.metadata.create_all(bind=test_engine)
 
@@ -37,5 +47,4 @@ def client():
         yield client
 
     app.dependency_overrides.clear()
-
     Base.metadata.drop_all(bind=test_engine)

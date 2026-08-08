@@ -1,4 +1,5 @@
 import pytest
+from app.enums.stages import Algorithm, Framework
 
 
 @pytest.mark.integration
@@ -9,8 +10,8 @@ def test_create_model_success(client):
             "name": "fraud-detection",
             "description": "Fraud detection model",
             "owner": "mlops-team",
-            "framework": "scikit-learn",
-            "algorithm": "Random Forest",
+            "framework": Framework.SCIKIT_LEARN,
+            "algorithm": Algorithm.RANDOM_FOREST,
         },
     )
 
@@ -25,13 +26,11 @@ def test_create_model_success(client):
 
     body = response.json()
 
-    print(body)
     assert body["id"] == model_id
     assert body["name"] == "fraud-detection"
     assert body["description"] == "Fraud detection model"
     assert body["owner"] == "mlops-team"
-    assert body["framework"] == "scikit-learn"
-    # assert body["algorithm"] == "Random Forest"
+    assert body["framework"] == Framework.SCIKIT_LEARN
 
 
 @pytest.mark.integration
@@ -50,8 +49,8 @@ def test_get_model_success(client):
             "name": "fraud-detection",
             "description": "Fraud detection model",
             "owner": "mlops-team",
-            "framework": "scikit-learn",
-            "algorithm": "Random Forest",
+            "framework": Framework.SCIKIT_LEARN,
+            "algorithm": Algorithm.RANDOM_FOREST,
         },
     )
 
@@ -65,7 +64,7 @@ def test_get_model_success(client):
     assert body["name"] == "fraud-detection"
     assert body["description"] == "Fraud detection model"
     assert body["owner"] == "mlops-team"
-    assert body["framework"] == "scikit-learn"
+    assert body["framework"] == Framework.SCIKIT_LEARN
 
 
 @pytest.mark.integration

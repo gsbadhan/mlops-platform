@@ -1,4 +1,5 @@
 import pytest
+from app.enums.stages import Algorithm, Framework, ModelRegistryStages
 
 
 @pytest.mark.integration
@@ -10,8 +11,8 @@ def test_create_model_version_success(client):
             "name": "fraud-detection",
             "description": "Fraud detection model",
             "owner": "mlops-team",
-            "framework": "scikit-learn",
-            "algorithm": "Random Forest",
+            "framework": Framework.SCIKIT_LEARN,
+            "algorithm": Algorithm.RANDOM_FOREST,
         },
     )
 
@@ -47,8 +48,8 @@ def test_get_model_versions_success(client):
             "name": "fraud-detection",
             "description": "Fraud detection model",
             "owner": "mlops-team",
-            "framework": "scikit-learn",
-            "algorithm": "Random Forest",
+            "framework": Framework.SCIKIT_LEARN,
+            "algorithm": Algorithm.RANDOM_FOREST,
         },
     )
 
@@ -67,19 +68,14 @@ def test_get_model_versions_success(client):
     )
 
     assert version_response.status_code == 201
-
     # Get versions
     response = client.get(f"/api/v1/models/{model_id}/versions")
     assert response.status_code == 200
-
     body = response.json()
     assert isinstance(body, list)
     assert len(body) == 1
     assert body[0]["model_id"] == model_id
     assert body[0]["version"] == "1.0.0"
-
-
-import pytest
 
 
 @pytest.mark.integration
@@ -91,8 +87,8 @@ def test_change_stage_success(client):
             "name": "fraud-detection",
             "description": "Fraud detection model",
             "owner": "mlops-team",
-            "framework": "scikit-learn",
-            "algorithm": "Random Forest",
+            "framework": Framework.SCIKIT_LEARN,
+            "algorithm": Algorithm.RANDOM_FOREST,
         },
     )
 
@@ -116,7 +112,7 @@ def test_change_stage_success(client):
     response = client.post(
         f"/api/v1/models/{model_id}/versions/{version_id}/stage",
         json={
-            "stage": "VALIDATED",
+            "stage": ModelRegistryStages.VALIDATED,
         },
     )
 
@@ -124,4 +120,4 @@ def test_change_stage_success(client):
     body = response.json()
     assert body["id"] == version_id
     assert body["model_id"] == model_id
-    assert body["stage"] == "VALIDATED"
+    assert body["stage"] == ModelRegistryStages.VALIDATED

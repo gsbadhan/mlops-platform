@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from fastapi import Depends
+from fastapi import Depends, status
 from sqlalchemy.orm import Session
 from uuid import UUID
 from app.core.database import get_db
@@ -12,7 +12,7 @@ from app.model.ml_model import MLModel
 router = APIRouter(prefix="/models", tags=["Models"])
 
 
-@router.post("", response_model=ModelResponse, status_code=201)
+@router.post("", response_model=ModelResponse, status_code=status.HTTP_201_CREATED)
 def create_model(
     request: CreateModelRequest,
     db: Session = Depends(get_db),
