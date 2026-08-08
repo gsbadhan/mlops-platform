@@ -1,26 +1,19 @@
+name: mlops
+
 services:
 
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     container_name: mlops-backend
     ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
-    environment:
-      - PYTHONUNBUFFERED=1
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     container_name: mlops-frontend
     ports:
-      - "4200:4200"
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - "4200:80"
     depends_on:
       - backend

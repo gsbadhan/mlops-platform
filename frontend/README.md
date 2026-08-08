@@ -1,3 +1,17 @@
+## Frontend Structure
+```bash
+.
+├── angular.json
+├── node_modules
+├── package.json
+├── public
+├── README.md
+├── src
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
+```
+
 # Frontend
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.20.
@@ -57,3 +71,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Deploy Frontend Using Dockerisation
+- docker build -t mlops-frontend .
+- docker run -d --rm -p 4200:80 mlops-frontend
