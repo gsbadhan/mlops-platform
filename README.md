@@ -12,10 +12,19 @@
 
 ## [Frontend](./frontend/README.md)
 
-## [Documentation](Docs/README.md)
+## [Documentation](./Docs/README.md)
 
 
-## Deploy Backend/Frontend Both Using Dockerisation
+## Deployment
+```bash
+Docker Compose
+├── Frontend (Angular + Nginx)
+│   └── :4200
+│
+└── Backend (FastAPI + uv)
+    └── :8000
+```
+### Deploy Backend/Frontend Both Using Dockerisation
 - docker compose build --no-cache --progress=plain
 - docker compose up -d
 - docker compose down

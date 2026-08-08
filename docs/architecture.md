@@ -1,3 +1,52 @@
+## Architecture Overview
+```mermaid
+flowchart LR
+
+    USER["👤 User<br/>Web Browser"]
+
+    subgraph DOCKER["Docker Compose Environment"]
+
+        subgraph FE["Frontend Container"]
+            NGINX["Nginx"]
+            ANGULAR["Angular SPA<br/><br/>Dashboard<br/>Models<br/>Deployments<br/>Monitoring"]
+
+            NGINX --> ANGULAR
+        end
+
+        subgraph BE["Backend Container"]
+            
+            API["API Layer"]
+            SERVICE["Service Layer"]
+            REPO["Repository Layer"]
+
+            API --> SERVICE
+            SERVICE --> REPO
+        end
+
+        subgraph DB["Persistent Storage"]
+            SQLITE[("SQLite<br/>mlops.db")]
+        end
+    end
+
+    USER -->|"HTTP"| NGINX
+
+    ANGULAR -->|"REST /api/v1"| API
+
+    REPO -->|"SQLAlchemy"| SQLITE
+
+    style DOCKER fill:#f5f5f5,stroke:#555,stroke-width:2px
+    style FE fill:#eef6ff,stroke:#4472c4,stroke-width:2px
+    style BE fill:#eef9f0,stroke:#548235,stroke-width:2px
+    style DB fill:#fff5e6,stroke:#bf9000,stroke-width:2px
+```
+
+## Frontend Capabilities
+```bash
+Dashboard
+├── Models
+├── Deployments
+└── Monitoring
+```
 ## Model Registry Workflow
 
 ```mermaid

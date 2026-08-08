@@ -28,3 +28,7 @@ dev = [
 testpaths = ["tests"]
 pythonpath = ["."]
 asyncio_mode = "auto"
+markers = [
+    "integration: API-level integration tests",
+    "unit: Unit tests",
+]

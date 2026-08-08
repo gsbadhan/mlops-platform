@@ -18,6 +18,8 @@
 
 ## Execute Testcases
 - uv run pytest
+- uv run pytest -m integration
+- uv run pytest -m unit
 
 ## Run API Server Standalone
 - uv run uvicorn app.main:app --reload
