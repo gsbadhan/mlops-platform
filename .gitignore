@@ -6,7 +6,7 @@ venv/
 uv.lock
 
 # FastAPI
-.env
+#.env
 
 # Angular
 node_modules/
